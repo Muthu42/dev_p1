@@ -274,7 +274,7 @@ const App: React.FC = () => {
       <div className="relative z-10 w-full">
         {state === AppState.LANDING && (
           <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center animate-fade-in">
-            <h1 className="text-6xl md:text-[12rem] font-dancing text-rose-800 mb-6 drop-shadow-sm px-4 leading-none">Prism of Love</h1>
+            <h1 className="text-6xl md:text-[12rem] font-dancing text-rose-800 mb-6 drop-shadow-sm px-4 leading-none">Prism </h1>
             <p className="text-lg md:text-2xl font-playfair italic mb-12 text-slate-400 tracking-[0.3em] max-w-md uppercase">Editorial Romance Experience</p>
             <button 
               onClick={() => setState(AppState.FORM)} 
