@@ -1,0 +1,46 @@
+name: CI-CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-scan-push:
+    runs-on: ubuntu-latest
+
+    env:
+      IMAGE_NAME: muthu42/dev_p1
+      IMAGE_TAG: latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run OWASP Dependency Check
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: "dev_p1"
+          path: "."
+          format: "HTML"
+          out: "reports"
+
+      - name: Build Docker Image
+        run: docker build -t $IMAGE_NAME:$IMAGE_TAG .
+
+      - name: Scan Docker Image with Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          format: table
+          exit-code: 1
+          severity: CRITICAL,HIGH
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Push Docker Image
+        run: docker push $IMAGE_NAME:$IMAGE_TAG
