@@ -26,7 +26,9 @@ jobs:
           out: "reports"
 
       - name: Build Docker Image
-        run: docker build -t $IMAGE_NAME:$IMAGE_TAG .
+  run: |
+    docker build -t $IMAGE_NAME:latest \
+                 -t $IMAGE_NAME:${{ github.sha }} .
 
       - name: Scan Docker Image with Trivy
         uses: aquasecurity/trivy-action@master
@@ -43,4 +45,6 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Push Docker Image
-        run: docker push $IMAGE_NAME:$IMAGE_TAG
+  run: |
+    docker push $IMAGE_NAME:latest
+    docker push $IMAGE_NAME:${{ github.sha }}
