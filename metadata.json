@@ -1,0 +1,7 @@
+{
+  "name": "Eternal Rose - Valentine's Card Creator",
+  "description": "A luxury digital Valentine's gift experience featuring 3D rose animations, personalized messages powered by Gemini, and custom photo integration.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
