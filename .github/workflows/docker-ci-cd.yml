@@ -26,14 +26,14 @@ jobs:
           out: "reports"
 
       - name: Build Docker Image
-  run: |
-    docker build -t $IMAGE_NAME:latest \
-                 -t $IMAGE_NAME:${{ github.sha }} .
+        run: |
+          docker build -t $IMAGE_NAME:latest \
+            -t $IMAGE_NAME:${{ github.sha }} .
 
       - name: Scan Docker Image with Trivy
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          image-ref: ${{ env.IMAGE_NAME }}:latest
           format: table
           exit-code: 0
           severity: CRITICAL,HIGH
@@ -45,6 +45,6 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Push Docker Image
-  run: |
-    docker push $IMAGE_NAME:latest
-    docker push $IMAGE_NAME:${{ github.sha }}
+        run: |
+          docker push $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:${{ github.sha }}
