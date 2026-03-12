@@ -59,4 +59,4 @@ jobs:
             docker pull $IMAGE_NAME:latest
             docker stop dev_p1 || true
             docker rm dev_p1 || true
-            docker run -d --name dev_p1 -p 3000:3000 $IMAGE_NAME:latest
+            docker run -d --name dev_p1 -p 3000:80 $IMAGE_NAME:latest
