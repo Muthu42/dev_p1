@@ -56,7 +56,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            docker pull $IMAGE_NAME:latest
-            docker stop dev_p1 || true
-            docker rm dev_p1 || true
-            docker run -d --name dev_p1 -p 3000:80 $IMAGE_NAME:latest
+            sudo docker pull muthu42doc/dev_p1:latest
+            sudo docker stop dev_p1 || true
+            sudo docker rm dev_p1 || true
+            sudo docker run -d --name dev_p1 -p 3000:80 muthu42doc/dev_p1:latest
